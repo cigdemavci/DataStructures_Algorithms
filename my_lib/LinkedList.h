@@ -11,12 +11,36 @@ class LinkedListNode
 		T data;
 		void addToTail(T data);
 		int nextCount();
-		T top();
+		T head();
+		T tail();
 		void addToTailWithoutDuplication(T data);
+		bool flag;
 };
 
 template <class T>
-T LinkedListNode<T>::top()
+T LinkedListNode<T>::tail()
+{
+	T returnValue = this->data;
+
+	LinkedListNode<T>* temp = NULL;
+
+	if(nodeNext != NULL)
+	{
+		temp = nodeNext;
+	
+		while(temp->nodeNext != NULL)
+		{
+			temp = temp->nodeNext;
+		}
+
+		returnValue = temp->data;
+	}
+
+	return this->data;
+}
+
+template <class T>
+T LinkedListNode<T>::head()
 {
 	return this->data;
 }
@@ -32,6 +56,46 @@ void deleteHead(LinkedListNode<T>*& head)
 
 		delete temp;
 	}
+}
+
+template <class T>
+T deleteTail(LinkedListNode<T>*& head)
+{
+	T returnValue = T();
+
+	LinkedListNode<T>* temp = head;
+
+	if(head != NULL)
+	{
+		if(head->nodeNext == NULL)
+		{
+			returnValue = head->data;
+
+			LinkedListNode<T>* dummy = head;
+
+			head = NULL;
+
+			delete dummy;
+
+		}
+		else
+		{
+			LinkedListNode<T>* prev = NULL;
+
+			while(temp->nodeNext != NULL)
+			{
+				prev = temp;
+				temp = temp->nodeNext;
+			}
+
+			returnValue = temp->data;
+			delete temp;
+
+			prev->nodeNext = NULL;
+		}
+	}
+
+	return returnValue;
 }
 
 template <class T>
@@ -85,6 +149,7 @@ LinkedListNode<T>::LinkedListNode(T data)
 {
 	this->data = data;
 	nodeNext = NULL;
+	flag = false;
 }
 
 template <class T>

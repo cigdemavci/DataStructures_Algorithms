@@ -3,6 +3,7 @@
 #include "HashTable.h"
 #include "ArrayList.h"
 #include "LinkedList.h"
+#include "Stack.h"
 
 using namespace std;
 
@@ -16,6 +17,29 @@ int hashFunction(string key)
 	}
 
 	return returnValue;
+}
+
+void stackTest()
+{
+	Stack<int> stack;
+
+	stack.push(1);
+	int top = stack.pop();
+	stack.push(2);
+	top = stack.pop();
+	stack.push(3);
+	stack.push(4);
+	stack.push(5);
+	stack.push(6);
+	top = stack.pop();
+	top = stack.pop();
+	stack.push(7);
+	top = stack.pop();
+	stack.push(8);
+	top = stack.pop();
+	stack.push(9);
+	top = stack.pop();
+
 }
 
 void hashTest()
@@ -73,7 +97,7 @@ void linkedListTest()
  	deleteNode(head, 0);
 }
 
-void removeDuplicatesLinkedList()
+void removeDuplicatesLinkedListTest()
 {
 	LinkedListNode<int>* head = new LinkedListNode<int>(0);
 
@@ -86,7 +110,7 @@ void removeDuplicatesLinkedList()
 	
 	for(int i=0; i<count; i++)
 	{
-		int data = head->top();
+		int data = head->head();
 
 		deleteHead(head);
 
@@ -296,8 +320,64 @@ void rotatedCheck(string string1, string string2)
 		}
 }
 
+template <class T>
+LinkedListNode<T>* findCircle(LinkedListNode<T>*& head)
+{
+	LinkedListNode<T>* returnValue = NULL;
+
+	if(head != NULL)
+	{
+		LinkedListNode<T>* temp = head;
+
+		temp->flag = true;
+
+		while(temp->nodeNext != NULL && temp->nodeNext->flag != true)
+		{
+			temp->nodeNext->flag = true;
+			temp = temp->nodeNext;
+		}
+
+		if(temp->nodeNext != NULL && temp->nodeNext->flag == true)
+		{
+			returnValue = temp->nodeNext;
+		}
+
+	}
+
+	return returnValue;
+}
+
+
+void findCircleTest()
+{
+	LinkedListNode<int>* head = new LinkedListNode<int>(0);
+
+	LinkedListNode<int>* temp = head;
+
+	LinkedListNode<int>* tail = head;
+
+	for(int i=1; i<10; i++)
+	{
+		head->addToTail(i);
+	}
+
+	for(int i=0; i<5; i++)
+	{
+		temp = temp->nodeNext;
+	}
+
+	for(int i=1; i<10; i++)
+	{
+		tail = tail->nodeNext;
+	}
+
+	tail->nodeNext = temp;
+
+	findCircle(head);
+}
+
 int main()
 {
-	deleteThisTest();
+	stackTest();
 	return 0;
 }
