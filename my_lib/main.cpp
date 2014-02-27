@@ -4,6 +4,7 @@
 #include "ArrayList.h"
 #include "LinkedList.h"
 #include "Stack.h"
+#include "Queue.h"
 
 using namespace std;
 
@@ -39,6 +40,29 @@ void stackTest()
 	top = stack.pop();
 	stack.push(9);
 	top = stack.pop();
+
+}
+
+void queueTest()
+{
+	Queue<int> queue;
+
+	queue.enqueue(1);
+	int top = queue.dequeue();
+	queue.enqueue(2);
+	top = queue.dequeue();
+	queue.enqueue(3);
+	queue.enqueue(4);
+	queue.enqueue(5);
+	queue.enqueue(6);
+	top = queue.dequeue();
+	top = queue.dequeue();
+	queue.enqueue(7);
+	top = queue.dequeue();
+	queue.enqueue(8);
+	top = queue.dequeue();
+	queue.enqueue(9);
+	top = queue.dequeue();
 
 }
 
@@ -378,6 +402,6 @@ void findCircleTest()
 
 int main()
 {
-	stackTest();
+	queueTest();
 	return 0;
 }
