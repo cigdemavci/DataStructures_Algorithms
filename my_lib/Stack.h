@@ -11,6 +11,7 @@ class Stack
 		void push(T data);
 		T pop();
 		T top();
+		bool isEmpty();
 
 	private:
 
@@ -53,6 +54,12 @@ template <class T>
 T Stack<T>::top()
 {
 	return head->tail();
+}
+
+template <class T>
+bool Stack<T>::isEmpty()
+{
+	return head == NULL;
 }
 
 #endif

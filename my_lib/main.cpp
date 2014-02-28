@@ -400,8 +400,138 @@ void findCircleTest()
 	findCircle(head);
 }
 
+template <class T>
+void hanoi(int n, Stack<T>& from, Stack<T>& helper, Stack<T>& to)
+{
+	if(n != 1)
+	{
+		hanoi(n-1, from, to, helper);
+
+		to.push(from.pop());
+
+		hanoi(n-1, helper, from, to);
+	}
+	else
+	{
+		to.push(from.pop());
+	}
+
+}
+
+void hanoiTest()
+{
+	Stack<int> stack1, stack2, stack3;
+
+	for(int i = 0; i < 10; i++)
+	{
+		stack1.push(i);
+	}
+
+	hanoi(10, stack1, stack2, stack3);
+}
+
+template <class T>
+void sortStackDescendingHelper(Stack<T> & stack1, Stack<T> & stack2)
+{
+	T data1, data2;
+
+	data1 = stack1.pop();
+
+	while(!stack1.isEmpty())
+	{
+		data2 = stack1.pop();
+
+		if(data1 > data2)
+		{
+			stack2.push(data1);
+
+			data1 = data2;
+		}
+		else
+		{
+			stack2.push(data2);
+		}
+	}
+
+	stack2.push(data1);
+}
+
+template <class T>
+bool sortStackAscendingHelper(Stack<T> & stack1, Stack<T> & stack2)
+{
+	bool returnValue = true;
+
+	T data1, data2;
+
+	data1 = stack1.pop();
+
+	int flag = 0;
+
+	while(!stack1.isEmpty())
+	{
+		data2 = stack1.pop();
+
+		if(data1 <= data2)
+		{
+			stack2.push(data1);
+
+			data1 = data2;
+		}
+		else
+		{
+			if(flag == 0)
+			{
+				flag = 1;
+			}
+
+			stack2.push(data2);
+		}
+	}
+
+	stack2.push(data1);
+
+	if(flag)
+	{
+		returnValue = false;
+	}
+
+	return returnValue;
+}
+
+template <class T>
+void sortStackAscending(Stack<T> & stack)
+{
+	bool returnValue = false;
+
+	Stack<T> temp;
+
+	while(!returnValue)
+	{
+		sortStackDescendingHelper(stack, temp);
+		returnValue = sortStackAscendingHelper(temp, stack);
+	}
+}
+
+void ascendingTest()
+{
+	Stack<int> stack;
+
+	stack.push(9);
+	stack.push(2);
+	stack.push(4);
+	stack.push(12);
+	stack.push(0);
+	stack.push(5);
+	stack.push(4);
+	stack.push(12);
+	stack.push(0);
+	stack.push(5);
+
+	sortStackAscending(stack);
+}
+
 int main()
 {
-	queueTest();
+	ascendingTest();
 	return 0;
 }
