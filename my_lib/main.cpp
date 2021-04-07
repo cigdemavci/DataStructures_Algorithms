@@ -72,19 +72,9 @@ void hashTest()
 	HashTable<string,string> table;
 	table.setHashFunction(hashFunction);
 
-	table.insert("avcisalma","cigdem");
-	table.insert("salma","volkan");
-	table.insert("salma","metin");
-	table.insert("avci","hasan");
-	table.insert("avci","hasan");
-	table.insert("avci","hasan");
+	table.insert("avci","cigdem");
 
-	table.remove("avcisalma","cigdem");
-	table.remove("salma","volkan");
-	table.remove("salma","metin");
-	table.remove("avci","hasan");
-	table.remove("avci","hasan");
-	table.remove("avci","hasan");
+
 	//HASH EXAMPLE
 
 }
